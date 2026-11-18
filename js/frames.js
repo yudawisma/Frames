@@ -46,7 +46,7 @@
         html +=
           '<div class="fr-marquee" aria-hidden="true" data-dir="' +
           (s % 2 ? 1 : -1) +
-          "<span>Mengalir &mdash; Tenang &mdash; Terus berjalan &mdash;</span>";
+          '"><span>Mengalir &mdash; Tenang &mdash; Terus berjalan &mdash;</span></div>';
       }
       html +=
         '<div class="fr-chapter"><span>' +
@@ -105,6 +105,15 @@
           } else vid.pause();
         });
       }).observe(vid.parentNode);
+    }
+  }
+
+  /* HP: pakai video yang lebih ringan */
+  if (vid && window.matchMedia("(max-width:760px)").matches) {
+    var vsrc = vid.querySelector("source");
+    if (vsrc) {
+      vsrc.src = "video/vd-mobile.mp4";
+      vid.load();
     }
   }
 
@@ -442,7 +451,7 @@
   var ticking = false;
   function drift() {
     var vh = window.innerHeight;
-    if (hero)
+    if (hero && window.innerWidth > 760)
       hero.style.translate = "0 " + Math.min(window.scrollY, vh) * 0.12 + "px";
     if (bar)
       bar.style.transform =
